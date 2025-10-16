@@ -24,6 +24,11 @@
   --color-light-secondary: var(--light-secondary);
   --color-light-disabled: var(--light-disabled);
 
+  /* background base colors */
+  --color-base-100: var(--mbg-primary);
+  --color-base-200: var(--mbg-secondary);
+  --color-base-300: var(--mbg-base);
+
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
   --font-head: var(--font-poppins);
@@ -61,8 +66,8 @@
   --color-popover-foreground: var(--popover-foreground);
   --color-popover: var(--popover);
 
-  --color-card-foreground: var(--card-foreground);
-  --color-card: var(--card);
+  --color-card: var(--color-base-100);
+  --color-card-foreground: var(--color-dark-primary);
 
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
@@ -89,6 +94,11 @@
   --light-primary: rgba(255, 255, 255, 1);
   --light-secondary: rgba(193, 194, 196, 1);
   --light-disabled: rgba(157, 158, 161, 1);
+
+  /* background base colors */
+  --mbg-primary: rgba(255, 255, 255, 1);
+  --mbg-base: rgba(244, 245, 250, 1);
+  --mbg-secondary: rgba(249, 250, 252, 1);
 
   --primary: oklch(0.205 0 0);
   --primary-foreground: oklch(0.985 0 0);
