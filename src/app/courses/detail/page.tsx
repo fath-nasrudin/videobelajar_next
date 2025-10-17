@@ -2,6 +2,12 @@ import { Container } from "@/components/container";
 import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
 import { Hero1 } from "@/components/hero-1";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import React from "react";
 
@@ -250,6 +256,55 @@ function Instructors() {
   );
 }
 
+function Modules() {
+  const modules = courseDetail.modules;
+  return (
+    <SectionShell>
+      <h5 className="text-heading-5">Kamu akan Mempelajari</h5>
+      {modules.map((module, index) => (
+        <div key={module.title}>
+          <Accordion
+            type="single"
+            collapsible
+            className="w-full"
+            defaultValue="item-0"
+          >
+            <AccordionItem value={`item-${index}`}>
+              <AccordionTrigger>
+                <h6 className="text-heading-6 text-primary line-clamp-1">
+                  {module.title}
+                </h6>
+              </AccordionTrigger>
+              <AccordionContent className="space-y-3 text-body-base">
+                {module.materials?.map((material) => (
+                  <div
+                    key={`${module.title} ${material.title}`}
+                    className=" bg-card border-border border rounded-card p-5 flex items-center justify-between gap-4"
+                  >
+                    <div className="font-medium">{material.title}</div>{" "}
+                    {/* detail */}
+                    <div className="hidden sm:flex text-dark-secondary gap-4">
+                      <span className="ml-auto flex items-center gap-2 ">
+                        <img src="/img/icons/play.svg" className="h-[18px]" />{" "}
+                        {material.type}
+                      </span>
+                      <span className="ml-auto flex  items-center gap-2">
+                        <img className="h-[18px]" src="/img/icons/clock.svg" />{" "}
+                        {material.duration}
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
+        </div>
+      ))}
+      {/* dropdownlist */}
+    </SectionShell>
+  );
+}
+
 function CTA() {
   return (
     <div className="bg-card border-border border rounded-card p-6 space-y-6">
@@ -309,6 +364,7 @@ export default function CourseDetailPage() {
           <div className="lg:flex-1 space-y-6">
             <Description />
             <Instructors />
+            <Modules />
           </div>
 
           {/* right part */}
