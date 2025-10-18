@@ -1,7 +1,13 @@
 import { Header } from "@/components/header";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import Link from "next/link";
+
+const FIELD_IDS = {
+  EMAIL: "login-email",
+  PASSWORD: "login-password",
+};
 
 export default function LoginPage() {
   return (
@@ -20,19 +26,27 @@ export default function LoginPage() {
           {/* <!-- Form --> */}
           <form className="space-y-4">
             <div>
-              <label className="form-label">E-Mail</label>
+              <Label htmlFor={FIELD_IDS.EMAIL}>E-Mail</Label>
               {/* <!-- 
               className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500"
             
             -->
              */}
-              <Input type="email" placeholder="email@example.com" />
+              <Input
+                id={FIELD_IDS.EMAIL}
+                type="email"
+                placeholder="email@example.com"
+              />
             </div>
 
             <div>
-              <label className="form-label">Kata Sandi</label>
+              <Label htmlFor={FIELD_IDS.PASSWORD}>Kata Sandi</Label>
               <div className="relative">
-                <Input type="password" placeholder="••••••••" />
+                <Input
+                  id={FIELD_IDS.PASSWORD}
+                  type="password"
+                  placeholder="••••••••"
+                />
                 <span className="absolute inset-y-0 right-3 flex items-center text-gray-400 cursor-pointer text-sm">
                   👁
                 </span>
