@@ -1,6 +1,16 @@
 "use client";
 import { usePathname } from "next/navigation";
 import { Button } from "./ui/button";
+import { LuLogOut, LuMenu } from "react-icons/lu";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import React from "react";
+import Link from "next/link";
+import { cn } from "@/lib/utils";
 
 export function Header() {
   const pathname = usePathname();
@@ -21,7 +31,7 @@ export function Header() {
 
         {!isAuthPath && <Menu />}
 
-        {!isAuthPath && (isLoggedIn ? <Profile /> : authButtons)}
+        {!isAuthPath && (isLoggedIn ? <HeaderDropdown /> : authButtons)}
       </div>
     </header>
   );
@@ -30,10 +40,6 @@ export function Header() {
 function Menu() {
   return (
     <>
-      {/* <!-- mobile menu button --> */}
-      <button className="sm:hidden">
-        <img src="/img/hamburger.svg" />
-      </button>
       {/* <!-- desktop menu --> */}
       <button className="hidden sm:block text-dark-secondary font-body">
         Kategori
@@ -42,13 +48,77 @@ function Menu() {
   );
 }
 
-function Profile() {
+function Profile({ className, ...props }: React.ComponentProps<"div">) {
   return (
-    <div className="hidden sm:block ml-6 w-11 h-11 rounded-[10px] overflow-hidden">
+    <div
+      {...props}
+      className={cn("ml-6 w-11 h-11 rounded-[10px] overflow-hidden", className)}
+    >
       <img
         src="/img/profile-user.png"
         className="block w-full h-full object-cover"
       />
     </div>
+  );
+}
+
+const getHeaderNavLinks = () => {
+  return [
+    {
+      title: "Kategori",
+      url: "#",
+      disabled: true,
+      mobileOnly: true,
+    },
+    {
+      title: "Profil Saya",
+      url: "#",
+      disabled: true,
+    },
+    {
+      title: "Kelas Saya",
+      url: "#",
+      disabled: true,
+    },
+    {
+      title: "Pesanan Saya",
+      url: "#",
+      disabled: true,
+    },
+    {
+      title: "Keluar",
+      url: "/login",
+      Icon: LuLogOut,
+      disabled: true,
+      destructive: true,
+    },
+  ];
+};
+
+function HeaderDropdown() {
+  const linkItems = getHeaderNavLinks();
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <button>
+          <Profile className="hidden sm:block" />
+          <LuMenu className="block sm:hidden" />
+        </button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent className="w-full mt-6" align="end">
+        {linkItems.map((item, index) => (
+          <DropdownMenuItem
+            key={index}
+            className={cn(`${item.mobileOnly && "sm:hidden"}`)}
+            variant={item.destructive ? "destructive" : "default"}
+          >
+            <Link href={item.url} className="flex gap-2 text-inherit">
+              <span>{item.title}</span>{" "}
+              {item.Icon && <item.Icon className="text-inherit" />}
+            </Link>
+          </DropdownMenuItem>
+        ))}
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 }
