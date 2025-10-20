@@ -84,7 +84,7 @@ export default function ProfilePage() {
           </div>
 
           {/* line */}
-          <hr className="h-[2px] w-full bg-dark-secondary" />
+          <hr className="h-[1px] w-full bg-light-secondary" />
 
           {/* form */}
           <form className="flex flex-col gap-4">
