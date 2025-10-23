@@ -9,7 +9,7 @@ import {
   updateUser,
 } from "@/lib/auth/localstorage-auth";
 
-export function useAuth() {
+export function useProfile() {
   const [user, setUser] = useState<User | null>(() =>
     isClient() ? getCurrentUser() : null
   );
