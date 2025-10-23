@@ -1,4 +1,4 @@
-import { CreateUserInput, Session, User } from "@/types";
+import { CreateUserInput, Session, UpdateUserInput, User } from "@/types";
 
 const USERS_KEY = "__dummy_auth_users";
 const SESSION_KEY = "__dummy_auth_session";
@@ -147,6 +147,24 @@ export function _dev_resetAll() {
   if (!isClient()) return;
   removeStorage(USERS_KEY);
   removeStorage(SESSION_KEY);
+}
+
+// PROFILE
+export function updateUser(id: string, updates: Partial<UpdateUserInput>) {
+  const users = getUsers();
+  const exists = users.find((u) => u.id === id);
+  if (!exists) {
+    throw new Error("User not found");
+  }
+
+  const user: User = { ...exists, ...updates };
+  users.push(user);
+  saveUsers(users);
+
+  // update session
+  const session: Session = { user, token: fakeTokenFor(user) };
+  saveSession(session);
+  return session;
 }
 
 /*
