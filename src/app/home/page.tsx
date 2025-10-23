@@ -1,9 +1,12 @@
+"use client";
+
 import { Container } from "@/components/container";
 import { CourseCard } from "@/components/courses";
 import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
 import { Hero1 } from "@/components/hero-1";
 import { Button } from "@/components/ui/button";
+import { withAuth } from "@/lib/auth/dummy-auth";
 import { Course } from "@/types";
 import Link from "next/link";
 
@@ -128,7 +131,7 @@ function Newsletter() {
   );
 }
 
-export default function Homepage() {
+export function Homepage() {
   return (
     <>
       <Header />
@@ -141,3 +144,5 @@ export default function Homepage() {
     </>
   );
 }
+
+export default withAuth(Homepage);

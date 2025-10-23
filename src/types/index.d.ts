@@ -17,3 +17,14 @@ export type Course = {
     ratingCount: number;
   };
 };
+
+export type User = {
+  id: string;
+  email: string;
+  password: string;
+};
+
+export type Session = {
+  user: User;
+  token: string; // fake token
+};
