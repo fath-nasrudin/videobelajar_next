@@ -15,6 +15,7 @@ export default function PaymentPage() {
         <HeaderComposable.Brand />
         {!isMobile && <StepIndicator steps={steps} currentStep={currentStep} />}
       </HeaderComposable>
+      {isMobile && <StepIndicator steps={steps} currentStep={currentStep} />}
       <Footer />
     </div>
   );
