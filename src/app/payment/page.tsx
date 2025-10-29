@@ -13,10 +13,12 @@ import {
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { ROUTES } from "@/constants/routes";
 import { getCourseDetail } from "@/data/courses";
 import { getPaymentOptions } from "@/data/payment";
 import { useIsMobile } from "@/hooks/use-is-mobile";
 import { formatPrice } from "@/lib/utils";
+import Link from "next/link";
 
 const courseDetail = getCourseDetail();
 const paymentOptions = getPaymentOptions();
@@ -135,9 +137,11 @@ function RingkasanPesanan() {
           {formatPrice(coursePrice + biayaAdmin, true)}
         </div>
       </div>
-      <Button variant={"primary"} className="w-full">
-        Beli Sekarang
-      </Button>
+      <Link href={ROUTES.paymentConfirmation.path}>
+        <Button variant={"primary"} className="w-full">
+          Beli Sekarang
+        </Button>
+      </Link>
     </SectionShell>
   );
 }
