@@ -135,3 +135,36 @@ function HeaderDropdown() {
     </DropdownMenu>
   );
 }
+
+export function HeaderComposable({ children }: { children: React.ReactNode }) {
+  const pathname = usePathname();
+  const { isAuthenticated: isLoggedIn } = useAuth();
+  const isAuthPath =
+    pathname.startsWith("/login") || pathname.startsWith("/register");
+
+  const authButtons = (
+    <div className="flex gap-4">
+      <Link href={"/login"}>
+        <Button variant={"primary"}>Login</Button>
+      </Link>
+      <Link href={"/register"}>
+        <Button variant={"primaryOutlined"}>Register</Button>
+      </Link>
+    </div>
+  );
+  return (
+    <header className="py-6 px-8 border-b border-border bg-base-100 sticky top-0 bg- z-10 shadow-xl sm:shadow-none">
+      <div className="mx-auto w-full max-w-[1200px] px-4 flex items-center gap-4">
+        {/* 
+        {!isAuthPath && <Menu />}
+
+        {!isAuthPath && (isLoggedIn ? <HeaderDropdown /> : authButtons)} */}
+        {children}
+      </div>
+    </header>
+  );
+}
+
+HeaderComposable.Brand = function HeaderBrand() {
+  return <img src="/img/logo.png" className="h-7 mr-auto" />;
+};
