@@ -7,6 +7,10 @@ export const ROUTES = {
     detail: (id: string) => `/courses/${id}`,
   },
   paymentOptions: {
+    // to be deprecated, use paymentMethods instead
+    path: "/payment",
+  },
+  paymentMethods: {
     path: "/payment",
   },
   paymentConfirmation: {
