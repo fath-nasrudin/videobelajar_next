@@ -6,6 +6,7 @@ import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
 import { Hero1 } from "@/components/hero-1";
 import { Button } from "@/components/ui/button";
+import { ROUTES } from "@/constants/routes";
 import { getCourses } from "@/data/courses";
 import { withAuth } from "@/lib/auth/dummy-auth";
 import { Course } from "@/types";
@@ -60,7 +61,7 @@ function Courses() {
       {/* <!-- course grid --> */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         {courses.map((course, i) => (
-          <Link href={"/courses/detail"} key={i}>
+          <Link href={ROUTES.courses.detail(course.id)} key={i}>
             <CourseCard course={course} />
           </Link>
         ))}

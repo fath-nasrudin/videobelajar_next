@@ -241,8 +241,13 @@ function CTA({ courseDetail }: { courseDetail: Course }) {
   );
 }
 
-export default function CourseDetailPage() {
-  const courseDetail = getCourseDetail("c_1");
+export default async function CourseDetailPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const { id } = await params;
+  const courseDetail = getCourseDetail(id);
   if (!courseDetail) return <p>Course not found</p>;
   return (
     <>
