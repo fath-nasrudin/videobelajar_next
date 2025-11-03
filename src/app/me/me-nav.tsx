@@ -1,5 +1,6 @@
 "use client";
 import { SectionShell } from "@/components/section-shell";
+import { ROUTES } from "@/constants/routes";
 import { useAuth } from "@/lib/auth/use-auth";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
@@ -9,9 +10,9 @@ import { LuUser } from "react-icons/lu";
 import { RiBook2Fill } from "react-icons/ri";
 
 const data = [
-  { Icon: LuUser, text: "Profil Saya", url: "/me/profile" },
-  { Icon: RiBook2Fill, text: "Kelas Saya", url: "/me/classes" },
-  { Icon: BsCartFill, text: "Pesanan Saya", url: "/me/myorders" },
+  { Icon: LuUser, text: "Profil Saya", url: ROUTES.me.myprofile.path },
+  { Icon: RiBook2Fill, text: "Kelas Saya", url: ROUTES.me.myclasses.path },
+  { Icon: BsCartFill, text: "Pesanan Saya", url: ROUTES.me.myorders.path },
 ];
 
 export function MeNav() {

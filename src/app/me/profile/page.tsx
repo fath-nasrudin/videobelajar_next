@@ -24,6 +24,7 @@ import { useState } from "react";
 import { BsCartFill } from "react-icons/bs";
 import { LuEye, LuUser } from "react-icons/lu";
 import { RiBook2Fill } from "react-icons/ri";
+import { MeNav } from "../me-nav";
 
 const data = [
   { Icon: LuUser, text: "Profil Saya", url: "/me/profile" },
@@ -164,27 +165,7 @@ export default function ProfilePage() {
               Ubah data diri Anda
             </p>
           </div>
-          <SectionShell className="w-full">
-            <ul className="flex flex-col gap-4 text-body-lg font-bold text-dark-secondary">
-              {data.map((item, index) => (
-                <li key={index}>
-                  <Link
-                    href={item.url}
-                    className={cn(
-                      "p-4 flex gap-4 items-center rounded-card",
-
-                      //   active path
-                      pathname.startsWith(item.url) &&
-                        " border border-secondary text-secondary bg-secondary/10"
-                    )}
-                  >
-                    <item.Icon />
-                    <span>{item.text}</span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </SectionShell>
+          <MeNav />
         </div>
         {/* right side */}
 
