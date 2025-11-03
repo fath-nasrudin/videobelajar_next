@@ -5,7 +5,7 @@ import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
 import { SectionShell } from "@/components/section-shell";
 import { MeNav } from "../me-nav";
-import { useOrder } from "@/services/order/user-order";
+import { useOrder } from "@/services/order/use-order";
 import { Order } from "@/types";
 import { formatPrice } from "@/lib/utils";
 import Link from "next/link";

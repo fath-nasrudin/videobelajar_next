@@ -19,7 +19,7 @@ import { getCourseDetail } from "@/data/courses";
 import { getPaymentOptions, getPaymentSteps } from "@/data/payment";
 import { useIsMobile } from "@/hooks/use-is-mobile";
 import { formatPrice } from "@/lib/utils";
-import { useOrder } from "@/services/order/user-order";
+import { useOrder } from "@/services/order/use-order";
 import { Course } from "@/types";
 import Link from "next/link";
 import { use } from "react";
