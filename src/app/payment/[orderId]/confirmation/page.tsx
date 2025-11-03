@@ -178,7 +178,10 @@ function RingkasanPesanan({
         </div>
       </div>
       <div className="flex gap-4">
-        <Link className="flex-1" href={ROUTES.paymentChangeMethod.path}>
+        <Link
+          className="flex-1"
+          href={ROUTES.payment.changeMethod.getPath(orderId)}
+        >
           <Button className="w-full" variant={"primaryOutlined"}>
             Ganti Metode Pembayaran
           </Button>

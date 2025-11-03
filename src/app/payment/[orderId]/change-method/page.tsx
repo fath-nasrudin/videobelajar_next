@@ -8,11 +8,18 @@ import { Button } from "@/components/ui/button";
 import { getCourseDetail } from "@/data/courses";
 import { useIsMobile } from "@/hooks/use-is-mobile";
 import { formatPrice } from "@/lib/utils";
-import { PaymentMethods } from "../components/payment-methods";
+import { PaymentMethods } from "../../components/payment-methods";
 import Link from "next/link";
 import { ROUTES } from "@/constants/routes";
 import { getPaymentSteps } from "@/data/payment";
 import { Course } from "@/types";
+import { use } from "react";
+import { useOrder } from "@/services/order/use-order";
+
+interface ComponentProps {
+  courseDetail: Course;
+  orderId: string;
+}
 
 function CTA({ courseDetail }: { courseDetail: Course }) {
   return (
@@ -94,12 +101,12 @@ function RingkasanPesanan({ courseDetail }: { courseDetail: Course }) {
   );
 }
 
-function ChangePaymentMethod() {
+function ChangePaymentMethod({ orderId }: ComponentProps) {
   return (
     <PaymentMethods>
       <PaymentMethods.Title>Ubah Metode Pembayaran</PaymentMethods.Title>
       <PaymentMethods.List />
-      <Link href={ROUTES.paymentConfirmation.path}>
+      <Link href={ROUTES.payment.confirmation.getPath(orderId)}>
         <Button variant={"primary"} className="w-full">
           Bayar Sekarang
         </Button>
@@ -108,11 +115,19 @@ function ChangePaymentMethod() {
   );
 }
 
-export default function PaymentPage() {
-  const steps = getPaymentSteps();
+export default function PaymentPage({
+  params,
+}: {
+  params: Promise<{ orderId: string }>;
+}) {
+  const { orderId } = use(params);
+  const { getOrderById } = useOrder();
+  const order = getOrderById(orderId);
+  if (!order) return <p>Order not found</p>;
+  const steps = getPaymentSteps(orderId);
   const currentStep = 2;
   const isMobile = useIsMobile();
-  const courseDetail = getCourseDetail("c_1");
+  const courseDetail = getCourseDetail(order.courseId);
   if (!courseDetail) return <p>Course not found</p>;
 
   return (
@@ -129,7 +144,7 @@ export default function PaymentPage() {
         {/* left part */}
         <div className="lg:flex-1 space-y-6">
           <RingkasanPesanan courseDetail={courseDetail} />
-          <ChangePaymentMethod />
+          <ChangePaymentMethod courseDetail={courseDetail} orderId={orderId} />
         </div>
 
         {/* right part */}

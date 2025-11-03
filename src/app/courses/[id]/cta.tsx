@@ -15,13 +15,13 @@ export function CourseDetailCTA({ courseDetail }: { courseDetail: Course }) {
   const handleBuy = () => {
     if (!user) return;
 
-    createOrder({
+    const order = createOrder({
       courseId: courseDetail.id,
       userId: user.id,
       totalPayment: courseDetail.price.discounted,
     });
 
-    router.push(ROUTES.paymentMethods.path);
+    router.push(ROUTES.payment.methods.getPath(order.id));
   };
 
   return (

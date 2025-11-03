@@ -6,16 +6,6 @@ export const ROUTES = {
     label: "Courses",
     detail: (id: string) => `/courses/${id}`,
   },
-  paymentOptions: {
-    // to be deprecated, use paymentMethods instead
-    path: "/payment",
-  },
-  paymentMethods: {
-    path: "/payment",
-  },
-  paymentChangeMethod: {
-    path: "/payment/change-method",
-  },
 
   payment: {
     methods: {
@@ -26,6 +16,9 @@ export const ROUTES = {
     },
     success: {
       getPath: (orderId: string) => `/payment/${orderId}/success`,
+    },
+    changeMethod: {
+      getPath: (orderId: string) => `/payment/${orderId}/change-method`,
     },
   },
 
