@@ -1,10 +1,25 @@
+import { getCourses } from "@/data/courses";
 import { randId, readStorage, writeStorage } from "@/lib/localstorage.helper";
 import { CreateOrderInput, Order, UpdateOrderInput } from "@/types";
 
 const ORDERS_KEY = "__dummy_orders";
 
-function getOrders(): Order[] {
-  return readStorage<Order[]>(ORDERS_KEY) ?? [];
+function getOrders(props?: { include?: { course?: boolean } }): Order[] {
+  const orders = readStorage<Order[]>(ORDERS_KEY) ?? [];
+  const courses = getCourses();
+
+  if (props?.include?.course) {
+    orders.forEach((order) => {
+      order.course = courses.find((course) => course.id === order.courseId);
+      return order;
+    });
+  }
+
+  return orders;
+}
+
+export function getOrdersWithCourse() {
+  return getOrders({ include: { course: true } });
 }
 
 function saveOrders(orders: Order[]) {
@@ -19,6 +34,7 @@ export function createOrder(data: CreateOrderInput): void {
     userId: data.userId,
     invoice: `HEL/VI/${Date.now()}`,
     status: "waiting_payment",
+    totalPayment: data.totalPayment,
   };
   orders.push(order);
   saveOrders(orders);

@@ -62,13 +62,18 @@ export type Instructor = {
 export type Order = {
   id: string;
   courseId: string;
+  course?: Course;
   userId: string;
   status: "pending" | "cancelled" | "success" | "waiting_payment";
   invoice: string;
+  totalPayment: number;
   paidAt?: string;
 };
 
-export type CreateOrderInput = Pick<Order, "userId" | "courseId">;
+export type CreateOrderInput = Pick<
+  Order,
+  "userId" | "courseId" | "totalPayment"
+>;
 export type UpdateOrderInput = Partial<Omit<Order, "id">>;
 
 export type Payment = {

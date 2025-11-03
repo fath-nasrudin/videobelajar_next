@@ -6,6 +6,7 @@ import {
 } from "@/lib/localstorage.helper";
 import { CreateOrderInput, Order, UpdateOrderInput } from "@/types";
 import { useState } from "react";
+import { getOrdersWithCourse } from "./order";
 
 const ORDERS_KEY = "__dummy_orders";
 
@@ -25,6 +26,7 @@ export function createOrder(data: CreateOrderInput): void {
     userId: data.userId,
     invoice: `HEL/VI/${Date.now()}`,
     status: "waiting_payment",
+    totalPayment: data.totalPayment,
   };
   orders.push(order);
   saveOrders(orders);
@@ -53,17 +55,17 @@ export function updateOrder(orderId: string, data: UpdateOrderInput): void {
 
 export function useOrder() {
   const [orders, setOrders] = useState<Order[] | []>(() =>
-    isClient() ? getOrders() : []
+    isClient() ? getOrdersWithCourse() : []
   );
 
   const doCreateOrder = (data: CreateOrderInput) => {
     createOrder(data);
-    setOrders(getOrders());
+    setOrders(getOrdersWithCourse());
   };
 
   const doUpdateOrder = (id: string, data: UpdateOrderInput) => {
     updateOrder(id, data);
-    setOrders(getOrders());
+    setOrders(getOrdersWithCourse());
   };
 
   return {
