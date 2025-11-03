@@ -8,6 +8,8 @@ import { MeNav } from "../me-nav";
 import { useOrder } from "@/services/order/user-order";
 import { Order } from "@/types";
 import { formatPrice } from "@/lib/utils";
+import Link from "next/link";
+import { ROUTES } from "@/constants/routes";
 
 const orderStatusLabel: Record<Order["status"], { label: string }> = {
   cancelled: { label: "Gagal" },
@@ -98,7 +100,19 @@ export default function MyOrdersPage() {
         <SectionShell className="flex-1 flex flex-col gap-4">
           <div className="flex flex-col gap-4">
             {orders.length ? (
-              orders.map((order) => <OrderCard key={order.id} order={order} />)
+              orders.map((order) => {
+                if (order.status === "waiting_payment") {
+                  return (
+                    <Link
+                      key={order.id}
+                      href={ROUTES.payment.methods.getPath(order.id)}
+                    >
+                      <OrderCard order={order} />
+                    </Link>
+                  );
+                }
+                return <OrderCard key={order.id} order={order} />;
+              })
             ) : (
               <p className="text-dark-secondary text-center">
                 No Order Found. Create Order First
